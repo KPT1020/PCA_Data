@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 sensor=['Alcohol','CO','CH4','LPG','H2','AIR']
 MQ=['MQ2','MQ4','MQ5','MQ6','MQ7','MQ8','MQ9'] #columns
-data=pd.read_csv('C:\\Users\\chich\\Gtihub\\PCA_Data\\PCA_extracted_data.csv')
+data=pd.read_csv('PCA_extracted_data.csv')
 data=data[MQ] #sliced column of data
 data.index=[sensor]
 data=data.round(2)
@@ -39,12 +39,12 @@ for sample in pca_plot.index:
  
 plt.show()
 
-dominant_sensor= pd.Series(pca.components_[0], index=[MQ])
-## now sort the loading scores based on their magnitude
-sorted_loading_scores = loading_scores.abs().sort_values(ascending=False)
+# dominant_sensor= pd.Series(pca.components_[0], index=[MQ])
+# ## now sort the loading scores based on their magnitude
+# sorted_loading_scores = loading_scores.abs().sort_values(ascending=False)
  
-# get the names of the top 10 genes
-top_10_genes = sorted_loading_scores.index.values
+# # get the names of the top 10 genes
+# top_10_genes = sorted_loading_scores.index.values
  
-## print the gene names and their scores (and +/- sign)
-print(loading_scores[top_10_genes])
+# ## print the gene names and their scores (and +/- sign)
+# print(loading_scores[top_10_genes])
