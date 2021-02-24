@@ -35,7 +35,8 @@ print(data.shape)
 #
 #########################
 # First center and scale the data
-scaled_data = preprocessing.scale(data.T)
+scaled_data = preprocessing.scale(data.T)#transpose data
+print(data.T)
  
 pca = PCA() # create a PCA object
 pca.fit(scaled_data) # do the math
@@ -59,7 +60,8 @@ plt.show()
  
 #the following code makes a fancy looking plot using PC1 and PC2
 pca_df = pd.DataFrame(pca_data, index=[*wt, *ko], columns=labels)
- 
+print(pca_df)
+
 plt.scatter(pca_df.PC1, pca_df.PC2)
 plt.title('My PCA Graph')
 plt.xlabel('PC1 - {0}%'.format(per_var[0]))
