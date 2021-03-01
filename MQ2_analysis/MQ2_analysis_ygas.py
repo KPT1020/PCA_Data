@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 pressure=['200','400','800','1000','3000','5000','10000'] #columns need to isolate the first 0,0 data
 gas=['air','propane','alcohol','CO','CH4','LPG','H2']
-data=pd.read_csv('MQ2_dataset.csv')
+data=pd.read_csv('MQ2_analysis\MQ2_dataset.csv')
 data=data[pressure]
 data.index=[gas]
 print(data)
