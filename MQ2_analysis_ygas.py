@@ -4,28 +4,23 @@ from sklearn.decomposition import PCA
 from sklearn import preprocessing
 import matplotlib.pyplot as plt
 
-pressure=['MQ2','MQ4','MQ5','MQ6','MQ7','MQ8','MQ9'] #columns
-sensor=['air','propane','alcohol','CO','CH4','LPG','H2']
-data=pd.read_csv('PCA_extracted_data.csv')
+pressure=['200','400','800','1000','3000','5000','10000'] #columns need to isolate the first 0,0 data
+gas=['air','propane','alcohol','CO','CH4','LPG','H2']
+data=pd.read_csv('MQ2_dataset.csv')
+data=data[pressure]
+data.index=[gas]
 print(data)
 
-data=data[MQ] #sliced column of data
-data.index=[sensor]
-data=data.round(2)
-print(data)
-
-scaled_data = preprocessing.scale(data)#nottranspose data
-print(data.T)
-#____RUN_PCA___#
-pca = PCA() # create a PCA object
+scaled_data = preprocessing.scale(data.T)#nottranspose data
+pca=PCA()
 pca.fit(scaled_data) # do the math
-pca_data = pca.transform(scaled_data) # get PCA coordinates for scaled_data
+pca_data = pca.transform(scaled_data)
 
 per_var = np.round(pca.explained_variance_ratio_* 100, decimals=1)
 #mutiply the ratio by 100 and round to 1 decimal
 labels = ['PC' + str(x) for x in range(1, len(per_var)+1)]
 #there should be 6 in total
-pca_plot=pd.DataFrame(pca_data, index=[MQ],columns=labels)
+pca_plot=pd.DataFrame(pca_data, index=[pressure],columns=labels)
 print(pca_plot)
 
 plt.scatter(pca_plot.PC1, pca_plot.PC2)
