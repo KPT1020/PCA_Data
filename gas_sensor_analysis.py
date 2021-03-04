@@ -4,12 +4,14 @@ from sklearn.decomposition import PCA
 from sklearn import preprocessing
 import matplotlib.pyplot as plt
 
-ppm=['200','400','800','1000','3000','5000','10000'] #columns need to isolate the first 0,0 data
-gas=['propane','alcohol','CO','CH4','LPG','H2']
-data=pd.read_csv('CSV_file\MQ2_dataset.csv')
+ppm=['200','400','800','1000','2000','3000','5000','10000'] #columns need to isolate the first 0,0 data
+gas=['air','alcohol','CO','CH4','LPG','H2']
+data=pd.read_csv('CSV_file\MQ8_dataset.csv')
 data=data[ppm]
-data=data.drop(row=1)
 data.index=[gas]
+data=data.drop(index='air')
+index=data.index
+print(index)
 print(data)
 
 scaled_data = preprocessing.scale(data)#nottranspose data
@@ -21,11 +23,11 @@ per_var = np.round(pca.explained_variance_ratio_* 100, decimals=1)
 #mutiply the ratio by 100 and round to 1 decimal
 labels = ['PC' + str(x) for x in range(1, len(per_var)+1)]
 #there should be 6 in total
-pca_plot=pd.DataFrame(pca_data, index=[gas],columns=labels)
+pca_plot=pd.DataFrame(pca_data, index=['alcohol','CO','CH4','LPG','H2'],columns=labels)
 print(pca_plot)
 
 plt.scatter(pca_plot.PC1, pca_plot.PC2)
-plt.title('MQ2_ygas')
+plt.title('MQ8_ygas')
 plt.xlabel('PC1 - {0}%'.format(per_var[0]))#give the cprrelation of first data
 plt.ylabel('PC2 - {0}%'.format(per_var[1])) #give the correlation of the second
 
@@ -39,7 +41,7 @@ dominant_sensor= pd.Series(pca.components_[0], index=[ppm])
 sorted_loading_scores = dominant_sensor.abs().sort_values(ascending=False)
  
 # get the names of the top 10 genes
-top_10_genes = sorted_loading_scores.index.values
+# top_10_genes = sorted_loading_scores.index.values
  
 ## print the gene names and their scores (and +/- sign)
-print(dominant_sensor[top_10_genes])
+print('The dominant factor is {}'.format(sorted_loading_scores.index[0]))
